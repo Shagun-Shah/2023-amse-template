@@ -1,22 +1,21 @@
 import pandas as pd
-import csv
 import sqlite3
 
 # Fetch the data - Datasource1
-excel_url = "https://opendata.stadt-muenster.de/sites/default/files/Fahrzeugbestand-Regierungsbezirk-Muenster-2018-2022.xlsx"
+csv_url_2020 = "https://opendata.bonn.de/sites/default/files/ParkverstoesseBonn2020_0.csv"
 
 # Fetch the data - Datasource2
-csv_url = "https://www.stadt-muenster.de/fileadmin/user_upload/stadt-muenster/61_stadtentwicklung/pdf/sms/05515000_csv_bevoelkerungsentwicklung_geschlecht.csv"
+csv_url_2021 = "https://opendata.bonn.de/sites/default/files/Parkverst%C3%B6%C3%9Fe%202021.csv"
 
 #Connect to the SQLite database
 connection = sqlite3.connect('AMSE_database.db')
 
 #Load into SQLite
-excel_df = pd.read_excel(excel_url)
-csv_df = pd.read_csv(csv_url, delimiter=';', encoding='latin-1')
+csv_df_2020 = pd.read_csv(csv_url_2020, delimiter=';', encoding='latin-1')
+csv_df_2021 = pd.read_csv(csv_url_2021, delimiter=';', encoding='latin-1')
 
-excel_df.to_sql("Fahrzeugbestand Regierungsbezirk Münster 2018-2022", connection, if_exists='replace', index=False)
-csv_df.to_sql("Opendata - Stadt Münster", connection, if_exists='replace', index=False)
+csv_df_2020.to_sql("Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2020", connection, if_exists='replace', index=False)
+csv_df_2021.to_sql("Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2021", connection, if_exists='replace', index=False)
 
 connection.commit()
 
