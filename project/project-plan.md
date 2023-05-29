@@ -3,44 +3,50 @@
 ## Summary
 
 <!-- Describe your data science project in max. 5 sentences. -->
-This project analyses the connection between Münster's population and demographic composition, vehicle type, and vehicle quantity.
+This project explores the Warnings and fines for stationary traffic (parking violations) for the years 2020 and 2021 for the city Bonn in the state North Rhine-Westphalia of Germany. We can obtain answers to the following questions by analysing the data:
+
+* An increase in the overall amount of parking fines.
+* Are there certain days or hours of the week when parking violations are more common? 
+* Specific locations or areas where parking violations are more frequent in 2020 and 2021.
 
 ## Rationale
 
 <!-- Outline the impact of the analysis, e.g. which pains it solves. -->
-We can better comprehend the relationship between population growth and the number of automobiles on city roads over time by analysing these two variables. 
-To find correlations and patterns, this analysis may involve examining population growth trends and statistics on car stock over a number of years, preferred vehicle type amongst the age group.
+a. We can gain a comprehensive understanding of parking behavior and its enforcement trends during this period.<br>
+
+b. This analysis will enable authorities to make data-driven decisions, optimize enforcement efforts, and implement targeted interventions to improve parking compliance and ensure effective utilization of parking spaces in the future.
 
 
 ## Datasources
 
 <!-- Describe each datasources you plan to use in a section. Use the prefic "DatasourceX" where X is the id of the datasource. -->
 
-### Datasource1: Fahrzeugbestand Regierungsbezirk Münster 2018-2022
-* Metadata URL: https://mobilithek.info/offers/-1738218276875079533
-* Data URL: https://opendata.stadt-muenster.de/sites/default/files/Fahrzeugbestand-Regierungsbezirk-Muenster-2018-2022.xlsx
-* Data Type: XLSX
-
- Information on the vehicle stock in the administrative district of Münster in the years 2018-2022.
-
-### Datasource2: Opendata - Stadt Münster
-* Metadata URL: https://opendata.stadt-muenster.de/dataset/statistik-bev%C3%B6lkerungsentwicklung
-* Data URL: https://www.stadt-muenster.de/fileadmin/user_upload/stadt-muenster/61_stadtentwicklung/pdf/sms/05515000_csv_bevoelkerungsentwicklung_geschlecht.csv
+### Datasource1: Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2020
+* Metadata URL: https://mobilithek.info/offers/-6571901671376151135
+* Data URL: https://opendata.bonn.de/sites/default/files/ParkverstoesseBonn2020_0.csv
 * Data Type: CSV
+* Columns: day, time, location, offense number, amount of the fine and vehicle type (car/truck)
 
-The CSV file "Statistics - Population Development by Gender" contains attributes Time, Area, Characteristic (Male, Female), Value.
+ :arrow_right: The data set contains the warnings and fines (knolls/tickets) issued for parking violations in 2020 in the Bonn city area.
+
+### Datasource2: Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2021
+* Metadata URL: https://mobilithek.info/offers/-4923391267684416470
+* Data URL: https://opendata.bonn.de/sites/default/files/Parkverst%C3%B6%C3%9Fe%202021.csv
+* Data Type: CSV
+* Columns: day, time, location, offense number, amount of the fine and vehicle type (car/truck)
+
+:arrow_right: The data set contains the warnings and fines (knolls/tickets) issued for parking violations in 2021 in the Bonn city area.
 
 ## Work Packages
 
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->
 
-1. Explore more datasets for this project --> Data Collection
-2. Data Cleaning & Data Integration
-3. Data Transformation
-4. Build an automated data pipeline
+1. Creation of Project Plan
+2. Build an automated data pipeline
+3. Work on exploratory data analysis
+4. Update project plan and work packages
 5. Automated tests for the project
 6. CI for the project
-7. Deployment
-8. Data Visualization
+7. Deployment of the project
 
 [i1]: https://github.com/jvalue/2023-amse-template/issues/1
