@@ -25,11 +25,18 @@ csv_df_2020[column_name] = csv_df_2020[column_name].str.replace('ß¶', 'ö')
 csv_df_2020.replace({'Ã¼': 'ü', 'Ã': 'ß', 'Ã¤': 'ä', 'ß¶': 'ö'}, regex=True, inplace=True)
 
 #Connect to the SQLite database
-connection = sqlite3.connect('AMSE_database.db')
+connection = sqlite3.connect('AMSE_database.sqlite')
 
 # Write DataFrame to SQLite tables
 csv_df_2020.to_sql("Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2020", connection, if_exists='replace', index=False)
 csv_df_2021.to_sql("Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2021", connection, if_exists='replace', index=False)
+
+print ("CSV Data:")
+print (csv_df_2020)
+
+print ("CSV Data:")
+print (csv_df_2021)
+
 
 # Commit changes to the database
 connection.commit()
