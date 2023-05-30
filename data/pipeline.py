@@ -31,13 +31,6 @@ connection = sqlite3.connect('AMSE_database.sqlite')
 csv_df_2020.to_sql("Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2020", connection, if_exists='replace', index=False)
 csv_df_2021.to_sql("Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2021", connection, if_exists='replace', index=False)
 
-print ("CSV Data:")
-print (csv_df_2020)
-
-print ("CSV Data:")
-print (csv_df_2021)
-
-
 # Commit changes to the database
 connection.commit()
 
