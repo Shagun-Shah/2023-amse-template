@@ -14,8 +14,20 @@ connection = sqlite3.connect('AMSE_database.db')
 csv_df_2020 = pd.read_csv(csv_url_2020, delimiter=';', encoding='latin-1')
 csv_df_2021 = pd.read_csv(csv_url_2021, delimiter=';', encoding='latin-1')
 
+#Renaming erroneous column name
+csv_df_2020.rename(columns= {'ï»¿TATTAG':'TATTAG'}, inplace=True)
+
+#Replacing column & row data errors
+csv_df_2020.columns = csv_df_2020.columns.str.replace('Ã¼', 'ü')
+csv_df_2020.columns = csv_df_2020.columns.str.replace('Ã', 'ß')
+csv_df_2020.columns = csv_df_2020.columns.str.replace('Ã¤', 'ä')
+csv_df_2020.columns = csv_df_2020.columns.str.replace('ß¶', 'ö', regex=True)
+
+csv_df_2020.replace({'Ã¼': 'ü', 'Ã': 'ß', 'Ã¤': 'ä', 'ß¶': 'ö'}, regex=True, inplace=True)
+
 csv_df_2020.to_sql("Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2020", connection, if_exists='replace', index=False)
 csv_df_2021.to_sql("Verwarn- und Bußgelder ruhender Verkehr (Parkverstöße) 2021", connection, if_exists='replace', index=False)
+
 
 connection.commit()
 
