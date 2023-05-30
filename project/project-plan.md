@@ -9,6 +9,7 @@ This project explores the Warnings and fines for stationary traffic (parking vio
 * Are there certain days or hours of the week when parking violations are more common? 
 * Specific locations or areas where parking violations are more frequent in 2020 and 2021.
 
+
 ## Rationale
 
 <!-- Outline the impact of the analysis, e.g. which pains it solves. -->
