@@ -2,7 +2,7 @@ import pandas as pd
 import sqlite3
 
 # Fetch the CSV data from the source URL
-dtypes = {'EVA_NR': int, 'DS100': str, 'IFOPT': str, 'NAME': str, 'Verkehr': str, 'Laenge': float, 'Breite': float, 'Betreiber_Name': str, 'Betreiber_Nr': float, 'Status': str }
+dtypes = {'EVA_NR': int, 'DS100': str, 'IFOPT': str, 'NAME': str, 'Verkehr': str, 'Laenge': float, 'Breite': float, 'Betreiber_Name': str, 'Betreiber_Nr': float}
 csv_df = pd.read_csv('https://download-data.deutschebahn.com/static/datasets/haltestellen/D_Bahnhof_2020_alle.CSV', sep=';', decimal=',', dtype=dtypes)
 
 # First, drop the "Status" column
