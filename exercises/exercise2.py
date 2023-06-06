@@ -25,6 +25,10 @@ pattern = r'^[A-Za-z]{2}:\d+:\d+(?::\d+)?$'
 # Filter rows based on the specified "IFOPT" pattern
 csv_df = csv_df[csv_df['IFOPT'].str.contains(pattern, na=False)]
 
+# Fill values in Betreiber_Nr and convert to int
+csv_df = csv_df.fillna(value={'Betreiber_Nr': 0})
+csv_df['Betreiber_Nr'] = csv_df['Betreiber_Nr'].astype(int)
+
 # Create a SQLite database and connect to it
 conn = sqlite3.connect('trainstops.sqlite')
 
