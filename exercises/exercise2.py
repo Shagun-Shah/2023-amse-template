@@ -1,6 +1,5 @@
 import pandas as pd
-import sqlite3
-from sqlalchemy import types
+from sqlalchemy import types, create_engine
 
 # Fetch the CSV data from the source URL
 d_types = {
@@ -42,11 +41,6 @@ csv_df = csv_df[csv_df['IFOPT'].str.contains(pattern, na=False)]
 # Empty cells
 csv_df = csv_df.dropna()
 
-# Create a SQLite database and connect to it
-conn = sqlite3.connect('trainstops.sqlite')
-
 # Write the DataFrame to the SQLite database
-csv_df.to_sql('trainstops', conn, if_exists='replace', index=False, dtype= d_types)
-
-# Close the database connection
-conn.close()
+engine = create_engine("sqlite:///trainstops.sqlite")
+csv_df.to_sql('trainstops',engine ,  if_exists='replace',index= False, dtype= d_types)
