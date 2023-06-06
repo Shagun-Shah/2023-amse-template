@@ -46,7 +46,7 @@ csv_df = csv_df.dropna()
 conn = sqlite3.connect('trainstops.sqlite')
 
 # Write the DataFrame to the SQLite database
-csv_df.to_sql('trainstops', conn, if_exists='replace', index=False)
+csv_df.to_sql('trainstops', conn, if_exists='replace', index=False, dtype= d_types)
 
 # Close the database connection
 conn.close()
