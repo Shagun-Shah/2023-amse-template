@@ -29,6 +29,8 @@ csv_df = csv_df[csv_df['IFOPT'].str.contains(pattern, na=False)]
 csv_df = csv_df.fillna(value={'Betreiber_Nr': 0})
 csv_df['Betreiber_Nr'] = csv_df['Betreiber_Nr'].astype(int)
 
+csv_df = csv_df.dropna()
+
 # Create a SQLite database and connect to it
 conn = sqlite3.connect('trainstops.sqlite')
 
