@@ -1,6 +1,5 @@
 import pandas as pd
 import sqlite3
-import pytest
 
 # Fetch the data - Datasource1
 csv_url_2020 = "https://opendata.bonn.de/sites/default/files/ParkverstoesseBonn2020_0.csv"

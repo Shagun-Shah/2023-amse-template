@@ -1,10 +1,9 @@
-#!/bin/sh  
+#!/bin/bash
 
-# execute the pipeline
-echo "Execute the pipeline"
-pytest -v data/pipeline.py
+echo "Pipeline execution started"
+python "$(dirname "$(dirname "$(realpath "$0")")")/data/pipeline.py"
+echo "Execution Completed"
 
-
-# test if pipeline works correct
-echo "Test if pipeline works correctly"
-python -m pytest data/test_script.py
+echo "Test started"
+python "$(dirname "$(dirname "$(realpath "$0")")")/data/test_script.py"
+echo "Test ended"
