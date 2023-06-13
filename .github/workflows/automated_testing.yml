@@ -7,7 +7,7 @@ on:
     - main
 
 jobs:
-  automated_testing_ci:
+  Automated_Testing_CI:
     runs-on: ubuntu-latest
     steps:
 
@@ -32,8 +32,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest
         pip install pandas
-        pip install sqlalchemy
-        
+                
     # Run Code Format check
 
     - name: Set execute permissions
