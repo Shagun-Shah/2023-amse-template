@@ -2,7 +2,7 @@
 
 # execute the pipeline
 echo "Execute the pipeline"
-python -v data/pipeline.py
+python data/pipeline.py
 
 
 # test if pipeline works correct
