@@ -11,13 +11,13 @@ def setup_data():
     yield
 
 
-def test_data_load(setup_data):
+def test_data_loading(setup_data: None):
     """Test if the data loading works and both datasets are instances of pandas.DataFrame"""
     assert isinstance(pipeline.csv_df_2020, pd.DataFrame)
     assert isinstance(pipeline.csv_df_2021, pd.DataFrame)
 
 
-def test_dataframe_shape(setup_data):
+def test_dataframe_shapes(setup_data: None):
     """Test if the shapes of both dataframes are correct as expected"""
     expected_shapes = [(pipeline.csv_df_2020, (107907, 6)), (pipeline.csv_df_2021, (109880, 6))]
 
@@ -25,7 +25,7 @@ def test_dataframe_shape(setup_data):
         assert dataframe.shape == expected_shape
 
 
-def test_dataframe_columns(setup_data):
+def test_dataframe_columns(setup_data: None):
     """Test if the columns of both dataframes are correct as expected"""
     expected_columns = [
         ['TATTAG', 'TATZEIT', 'TATORT', 'TATBESTANDBE_TBNR', 'GELDBUSSE', 'BEZEICHNUNG']
@@ -35,15 +35,40 @@ def test_dataframe_columns(setup_data):
         assert all(a == b for a, b in zip(dataframe.columns, expected_column))
 
 
-def test_output_exists(setup_data):
+def test_output_file_exists(setup_data: None):
     """Test if after the execution of the pipeline, both datasets are saved in an SQLite database file in the data directory"""
     directory_path = os.getcwd()
     assert os.path.exists(os.path.join(directory_path, "AMSE_database.sqlite"))
 
 
-def test_pipeline():
-    """Test if the pipeline script works as expected"""
-    test_data_load()
-    test_dataframe_shape()
-    test_dataframe_columns()
-    test_output_exists()
+def run_tests():
+    """Run all the tests and calculate the pass percentage"""
+    tests = [
+        test_data_loading,
+        test_dataframe_shapes,
+        test_dataframe_columns,
+        test_output_file_exists
+    ]
+
+    total_tests = len(tests)
+    passed_tests = 0
+
+    for test in tests:
+        try:
+            test(setup_data)
+            passed_tests += 1
+            print(f"{test.__name__} passed.")
+        except AssertionError:
+            print(f"{test.__name__} failed.")
+
+    pass_percentage = (passed_tests / total_tests) * 100
+    print(f"Pass percentage: {pass_percentage}%")
+
+    if pass_percentage == 100:
+        print("All tests passed!")
+    else:
+        print("Some tests failed.")
+
+
+if __name__ == "__main__":
+    run_tests()
