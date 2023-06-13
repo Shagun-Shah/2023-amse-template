@@ -5,9 +5,9 @@
 <!-- Describe your data science project in max. 5 sentences. -->
 This project explores the Warnings and fines for stationary traffic (parking violations) for the years 2020 and 2021 for the city Bonn in the state North Rhine-Westphalia of Germany. We can obtain answers to the following questions by analysing the data:
 
-* An increase in the overall amount of parking fines.
-* Are there certain days or hours of the week when parking violations are more common? 
 * Specific locations or areas where parking violations are more frequent in 2020 and 2021 together.
+* Are there certain days or hours of the week when parking violations are more common? 
+* An increase in the overall amount of parking fines.
 
 
 ## Rationale
