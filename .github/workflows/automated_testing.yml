@@ -25,7 +25,6 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: 3.11
-
         
     # Install dependencies
     - name: Install dependecies
@@ -33,6 +32,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest
         pip install pandas
+        pip install sqlalchemy
         
     # Run Code Format check
 
