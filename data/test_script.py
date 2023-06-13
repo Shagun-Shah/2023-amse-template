@@ -1,74 +1,66 @@
 import os
-import pytest
 import pandas as pd
 import pipeline
 
 
-@pytest.fixture
-def setup_data():
-    """Fixture to set up data for testing"""
-    pipeline.load_data()
-    yield
-
-
-def test_data_loading(setup_data: None):
+def test_data_load():
     """Test if the data loading works and both datasets are instances of pandas.DataFrame"""
+    print("Testing data loading...")
     assert isinstance(pipeline.csv_df_2020, pd.DataFrame)
     assert isinstance(pipeline.csv_df_2021, pd.DataFrame)
+    print("Data loading test passed!")
 
 
-def test_dataframe_shapes(setup_data: None):
+def test_dataframe_shape():
     """Test if the shapes of both dataframes are correct as expected"""
-    expected_shapes = [(pipeline.csv_df_2020, (107907, 6)), (pipeline.csv_df_2021, (109880, 6))]
+    print("Testing dataframe shapes...")
+    csv_df_2020_expected_shape = (107907, 6)  # expected shape of the dataframe 1
+    csv_df_2021_expected_shape = (109880, 6)  # expected shape of the dataframe 2
 
-    for dataframe, expected_shape in expected_shapes:
-        assert dataframe.shape == expected_shape
+    csv_df_2020_actual_shape = pipeline.csv_df_2020.shape  # actual shape of the dataframe 1
+    csv_df_2021_actual_shape = pipeline.csv_df_2021.shape  # actual shape of the dataframe 2
+
+    # check if the shape is correct
+    assert csv_df_2020_actual_shape == csv_df_2020_expected_shape
+    assert csv_df_2021_actual_shape == csv_df_2021_expected_shape
+    print("Dataframe shapes test passed!")
 
 
-def test_dataframe_columns(setup_data: None):
+def test_dataframe_columns():
     """Test if the columns of both dataframes are correct as expected"""
-    expected_columns = [
-        ['TATTAG', 'TATZEIT', 'TATORT', 'TATBESTANDBE_TBNR', 'GELDBUSSE', 'BEZEICHNUNG']
-    ] * 2
-
-    for dataframe, expected_column in zip((pipeline.csv_df_2020, pipeline.csv_df_2021), expected_columns):
-        assert all(a == b for a, b in zip(dataframe.columns, expected_column))
-
-
-def test_output_file_exists(setup_data: None):
-    """Test if after the execution of the pipeline, both datasets are saved in an SQLite database file in the data directory"""
-    directory_path = os.getcwd()
-    assert os.path.exists(os.path.join(directory_path, "AMSE_database.sqlite"))
-
-
-def run_tests():
-    """Run all the tests and calculate the pass percentage"""
-    tests = [
-        test_data_loading,
-        test_dataframe_shapes,
-        test_dataframe_columns,
-        test_output_file_exists
+    print("Testing dataframe columns...")
+    csv_df_2020_expected_columns = [
+        'TATTAG', 'TATZEIT', 'TATORT', 'TATBESTANDBE_TBNR', 'GELDBUSSE', 'BEZEICHNUNG'
     ]
+    csv_df_2021_expected_columns = [
+        'TATTAG', 'TATZEIT', 'TATORT', 'TATBESTANDBE_TBNR', 'GELDBUSSE', 'BEZEICHNUNG'
+    ]
+    csv_df_2020_actual_columns = pipeline.csv_df_2020.columns
+    csv_df_2021_actual_columns = pipeline.csv_df_2021.columns
 
-    total_tests = len(tests)
-    passed_tests = 0
+    # check if the columns are correct
+    assert all(a == b for a, b in zip(csv_df_2020_actual_columns, csv_df_2020_expected_columns))
+    assert all(a == b for a, b in zip(csv_df_2021_actual_columns, csv_df_2021_expected_columns))
+    print("Dataframe columns test passed!")
 
-    for test in tests:
-        try:
-            test(setup_data)
-            passed_tests += 1
-            print(f"{test.__name__} passed.")
-        except AssertionError:
-            print(f"{test.__name__} failed.")
 
-    pass_percentage = (passed_tests / total_tests) * 100
-    print(f"Pass percentage: {pass_percentage}%")
+def test_output_exists():
+    """Test if after the execution of the pipeline, both datasets are saved in an SQLite database file in the data directory"""
+    print("Testing pipeline output...")
+    directory_path = os.getcwd()  # get directory path
+    assert os.path.exists(os.path.join(directory_path, "AMSE_database.sqlite"))
+    print("Pipeline output test passed!")
 
-    if pass_percentage == 100:
-        print("All tests passed!")
-    else:
-        print("Some tests failed.")
+
+def test_pipeline():
+    """Test if the pipeline script works as expected"""
+    print("Start testing pipeline...")
+    test_data_load()
+    test_dataframe_shape()
+    test_dataframe_columns()
+    test_output_exists()
+    print("Pipeline test done!")
 
 
 if __name__ == "__main__":
-    run_tests()
+    test_pipeline()
