@@ -3,8 +3,8 @@ I am presenting my AMSE/SAKI module 2023 submission through this repository. It 
 
 Within this repository, you can find two components: 
 
-(a) a data science project that was developed throughout the semester, and 
-(b) the exercises that were submitted during the semester.
+- (a) a data science project that was developed throughout the semester, and 
+- (b) the exercises that were submitted during the semester.
 
 ## Project Setup
 The following files are part of the final project:
