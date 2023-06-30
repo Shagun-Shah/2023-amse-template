@@ -56,4 +56,12 @@ Grading Exercise 3
 		Shape: 4 of 4
 		Types: 14 of 14
 		Quality: 4 of 4
+
+Grading Exercise 4
+	Overall points 15 of 15
+	---
+	By category:
+		Shape: 4 of 4
+		Types: 9 of 9
+		Quality: 2 of 2
 ```
