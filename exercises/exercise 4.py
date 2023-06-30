@@ -1,32 +1,43 @@
-import urllib.request
-import zipfile
 import os
+import zipfile
+import urllib.request
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import BIGINT, TEXT, FLOAT
 
-# Download and unzip data
-url = 'https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip'
-target_dir = 'data'
+# 1: Download and unzip data
+zip_file, headers = urllib.request.urlretrieve('https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip')
 
-with urllib.request.urlopen(url) as response, open('temp.zip', 'wb') as f:
-    f.write(response.read())
-
-with zipfile.ZipFile('temp.zip', 'r') as zip_ref:
+with zipfile.ZipFile(zip_file, "r") as zip_ref:
+    target_dir = "data"
     zip_ref.extractall(target_dir)
+csv_file = os.path.join(target_dir, os.listdir(target_dir)[0])
 
-# Read and reshape data
-csv_filename = os.path.join(target_dir, os.listdir(target_dir)[0])
-columns_to_keep = ["Geraet", "Hersteller", "Model", "Monat", "Temperatur in °C (DWD)", "Batterietemperatur in °C", "Geraet aktiv"]
-df = pd.read_csv(csv_filename, sep=';', decimal=',', usecols=columns_to_keep)
-df.rename(columns={'Temperatur in °C (DWD)': 'Temperatur', 'Batterietemperatur in °C': 'Batterietemperatur'}, inplace=True)
+# 2: Reshape data
+df = pd.read_csv(csv_file, sep=';', decimal=',', index_col=False, usecols=["Geraet", "Hersteller", "Model", "Monat", "Temperatur in °C (DWD)", "Batterietemperatur in °C", "Geraet aktiv"])
 
-# Transform data
-df[['Temperatur', 'Batterietemperatur']] = df[['Temperatur', 'Batterietemperatur']].apply(lambda x: (x * 9/5) + 32)
+df = df.rename(columns={'Temperatur in °C (DWD)': 'Temperatur','Batterietemperatur in °C': 'Batterietemperatur'})
 
-# Validate data
-df = df[(df['Monat'] >= 1) & (df['Monat'] <= 12)]
-df = df[df['Geraet'] >= 0]
+# 3: Transform data
+# Celsius to Fahrenheit
+df["Temperatur"] = df["Temperatur"].astype(str).apply(lambda x: float(x.replace(',', '.')))
+df["Batterietemperatur"] = df["Batterietemperatur"].astype(str).apply(lambda x: float(x.replace(',', '.')))
 
-# Write data to SQLite database
-engine = create_engine("sqlite:///temperatures.sqlite", echo=True)
-df.to_sql('temperatures', engine, if_exists='replace', index=False)
+# Celsius to Fahrenheit
+df["Temperatur"] = (df["Temperatur"] * 9/5) + 32
+df["Batterietemperatur"] = (df["Batterietemperatur"] * 9/5) + 32
+
+# 4: Validate 
+df = df[ (df['Monat'] >= 1) & (df['Monat'] <= 12)]
+df = df[ (df['Geraet'] >= 0)]
+
+
+# 5: Use fitting SQLite types
+df.to_sql('temperatures', 'sqlite:///temperatures.sqlite', if_exists='replace', index=False, dtype={
+        'Geraet': BIGINT,
+        'Hersteller': TEXT,
+        'Model': TEXT,
+        'Monat': BIGINT,
+        'Temperatur': FLOAT,
+        'Batterietemperatur': FLOAT,
+        'Geraet aktiv': TEXT
+    })
