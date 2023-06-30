@@ -31,18 +31,6 @@ df["Batterietemperatur"] = (df["Batterietemperatur"] * 9/5) + 32
 df = df[ (df['Monat'] >= 1) & (df['Monat'] <= 12)]
 df = df[ (df['Geraet'] >= 0)]
 
-
-# 5: Use fitting SQLite types
-#df.to_sql('temperatures', 'sqlite:///temperatures.sqlite', if_exists='replace', index=False, dtype={
-#        'Geraet': BIGINT,
-#        'Hersteller': TEXT,
- #       'Model': TEXT,
-  #      'Monat': BIGINT,
-   #     'Temperatur': FLOAT,
-    #    'Batterietemperatur': FLOAT,
-     #   'Geraet aktiv': TEXT
- #   })
-
 # Step 5: Write data to SQLite database
 database_name = "temperatures.sqlite"
 table_name = "temperatures"
