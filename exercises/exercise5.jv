@@ -1,4 +1,4 @@
-pipeline GTFSPipeline {
+pipeline GtfsPipeline {
 	block GtfsExtractor oftype HttpExtractor {
 		url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
 	}
@@ -21,19 +21,19 @@ pipeline GTFSPipeline {
 	}
 
     valuetype coordinates oftype decimal {
-	constraints: [BoundConstraint,];
+	constraints: [BoundConstraint];
     }
 
 	constraint BoundConstraint oftype RangeConstraint {
-        lowerBound: -90;
+        lowerBound:-90;
         upperBound: 90;
     }
 
 	valuetype ZoneId oftype integer {
-	constraints: [Zone2001,];
+	constraints: [Zone_2001];
 	}
 
-	constraint Zone2001 oftype RangeConstraint{
+	constraint Zone_2001 oftype RangeConstraint{
 		lowerBound: 2001;
     	upperBound: 2001;
 	}
@@ -55,11 +55,11 @@ pipeline GTFSPipeline {
 
 	}
 
-    GtfsExtractor
-        ->GtfsArchiveInterpreter
-        ->GtfsFilePicker
-        ->GtfsTextFileInterpreter
-        ->GtfsCSVInterpreter
-        ->GtfsTableInterpreter
-        ->GtfsLoader;
+GtfsExtractor
+ ->GtfsArchiveInterpreter
+ ->GtfsFilePicker
+ ->GtfsTextFileInterpreter
+ ->GtfsCSVInterpreter
+ ->GtfsTableInterpreter
+ ->GtfsLoader;
 }
