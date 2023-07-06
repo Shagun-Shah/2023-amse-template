@@ -20,15 +20,13 @@ pipeline GTFSPipeline {
         enclosingEscape: '"';
 	}
 
-    constraint BoundConstraint oftype RangeConstraint {
-        lowerBound: -90;
-        upperBound: 90;
+    valuetype LangType oftype decimal {
+	constraints: [BoundConstraint];
     }
 
-    valuetype LangType oftype decimal {
-	constraints: [
-		BoundConstraint,
-	];
+	constraint BoundConstraint oftype RangeConstraint {
+        lowerBound: -90;
+        upperBound: 90;
     }
 
 	block GtfsTableInterpreter oftype TableInterpreter {
