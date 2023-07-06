@@ -20,8 +20,8 @@ pipeline GTFSPipeline {
         enclosingEscape: '"';
 	}
 
-    valuetype LangType oftype decimal {
-	constraints: [BoundConstraint];
+    valuetype coordinates oftype decimal {
+	constraints: [BoundConstraint,];
     }
 
 	constraint BoundConstraint oftype RangeConstraint {
@@ -29,14 +29,23 @@ pipeline GTFSPipeline {
         upperBound: 90;
     }
 
+	valuetype ZoneId oftype integer {
+	constraints: [Zone2001,];
+	}
+
+	constraint Zone2001 oftype RangeConstraint{
+		lowerBound: 2001;
+    	upperBound: 2001;
+	}
+
 	block GtfsTableInterpreter oftype TableInterpreter {
 		header: true;
 		columns: [
 			"stop_id" oftype integer,
 			"stop_name" oftype text,
-			"stop_lat" oftype LangType ,
-			"stop_lon" oftype LangType,
-			"zone_id" oftype integer,
+			"stop_lat" oftype coordinates ,
+			"stop_lon" oftype coordinates,
+			"zone_id" oftype ZoneId,
 		];
 	}
 
