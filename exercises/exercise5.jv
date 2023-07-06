@@ -12,7 +12,6 @@ pipeline GtfsPipeline {
 	}
 
 	block GtfsTextFileInterpreter oftype TextFileInterpreter {
-        encoding: "ASCII";
 	}
 
 	block GtfsCSVInterpreter oftype CSVInterpreter {
@@ -51,7 +50,7 @@ pipeline GtfsPipeline {
 
 	block GtfsLoader oftype SQLiteLoader {
 		table: "stops";
-		file: "./gtfs.sqlite";
+		file: "gtfs.sqlite";
 
 	}
 
